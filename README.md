@@ -4,10 +4,9 @@ AttentionalModulationTask
 Fall 2013 PIN rotation with David Cox
 
 ## Experimental Design
+______________________
 
-_________
-
-Sequence of events expressed during a single trial: head poke/no poke —> display target (A/B) or distractor (O) —> animal lick/no lick —>reward/neutral/punishment. There is one session per day, one hour per session. We systematically vary the amount of reward associated with A or B on a given session, while maintaining the total amount of reward delivered on A and B constant. This condition is kept during all training phases.
+Sequence of events expressed during a single trial: head poke/no poke —> display target (A/B) or distractor (O) —> animal lick/no lick —>reward/neutral/punishment. Trials are embeded in sessions. There is one session per day, one hour per session. We vary the amount of reward associated with A or B across sessions, while maintaining the total amount of reward delivered for A or B constant overtime.
 
 **TRAINING**
 
