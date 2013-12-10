@@ -12,29 +12,29 @@
     </io_devices>
     <variables tag="Variables">
         <folder tag="IO Variables">
-                <variable tag="licksensor_max" default_value="1000" type="float" scope="global" logging="when_changed" groups="IO Devices" persistant="1"></variable>
-                <variable tag="licksensor_min" default_value="10" type="float" scope="global" logging="when_changed" groups="IO Devices" persistant="1"></variable>
-                <variable tag="headsensor_max" default_value="500" type="float" scope="global" logging="when_changed" groups="IO Devices" persistant="1"></variable>
-                <variable tag="headsensor_min" default_value="0" type="float" scope="global" logging="when_changed" groups="IO Devices" persistant="1"></variable>
-                <variable tag="lick_input" default_value="0" type="float" editable="ALWAYS" full_name="Lick Sensor 1 Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Devices"></variable>
-                <variable tag="head_input" default_value="1000" type="float" editable="ALWAYS" full_name="Head Movement Sensor Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Devices"></variable>
-                <variable tag="lick_output" default_value="0.02" type="float" editable="ALWAYS" full_name="Reward Output 1 Time" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Devices, Reward, Manual Training"></variable>
-                <variable tag="reward_big" default_value="0.05" type="float" scope="global" logging="when_changed" groups="IO Devices, Reward" persistant="1"></variable>
-                <variable tag="reward_norm" default_value="0.03" type="float" scope="global" logging="when_changed"  groups="IO Devices, Reward" persistant="1"></variable>
-                <variable tag="reward_rand" default_value="0.00" type="float" scope="global" logging="when_changed" groups="IO Devices, Reward" persistant="1"></variable>
-                <variable tag="reward_rand_range" default_value="0.02" type="float" scope="global" logging="when_changed" type="float" groups="IO Devices, Reward" persistant="1"></variable>
-                <variable tag="reward_A" default_value="0" type="float" scope="global" logging="when_changed" persistant="1" groups="IO Devices, Reward, Phase Transition, Behavioral Variables, Training Variables, Manual Training"></variable>
-                <variable tag="reward_B" default_value="0" type="float" scope="global" logging="when_changed" persistant="1" groups="IO Devices, Reward, Phase Transition, Behavioral Variables, Training Variables, Manual Training"></variable>
-                <variable tag="reward_decrement" default_value="0.005" type="float" scope="global" logging="when_changed" groups="IO Devices, Reward, Training Variables" persistant="1"></variable>
+                <variable tag="licksensor_max" default_value="1000" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="licksensor_min" default_value="10" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="headsensor_max" default_value="500" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="headsensor_min" default_value="0" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="lick_input" default_value="0" type="float" editable="ALWAYS" full_name="Lick Sensor 1 Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Variables"></variable>
+                <variable tag="head_input" default_value="1000" type="float" editable="ALWAYS" full_name="Head Movement Sensor Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Variables"></variable>
+                <variable tag="lick_output" default_value="0.02" type="float" editable="ALWAYS" full_name="Reward Output 1 Time" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Variables"></variable>
+                <variable tag="reward_big" default_value="0.05" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="reward_norm" default_value="0.03" type="float" scope="global" logging="when_changed"  groups="IO Variables" persistant="1"></variable>
+                <variable tag="reward_rand" default_value="0.00" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="reward_rand_range" default_value="0.02" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+                <variable tag="reward_A" default_value="0" type="float" scope="global" logging="when_changed" persistant="1" groups="IO Variables"></variable>
+                <variable tag="reward_B" default_value="0" type="float" scope="global" logging="when_changed" persistant="1" groups="IO Variables"></variable>
+                <variable tag="reward_decrement" default_value="0.005" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
         </folder>
     </variables>
     <experiment tag="New Experiment" full_name="" description="">
-    <protocol tag="Target Training Protocol" nsamples="1" sampling_method="cycles" selection="sequential" interruptible="YES">
+    	<protocol tag="Target Training Protocol" nsamples="1" sampling_method="cycles" selection="sequential" interruptible="YES">
             <action tag="Start Phidget" type="start_device_IO" device="phidget" message="Start head/lick sensors."></action>
             <action tag="Start Pump" type="start_device_IO" device="NE500" message="Start pump."></action>
             
             <action tag="Stop Phidget" type="stop_device_IO" device="phidget" message="Stop head/lick sensors."></action>
-            <action tag="Stop Pump" type="stop_device_IO" device="NE500" "Stop pump."></action>
+            <action tag="Stop Pump" type="stop_device_IO" device="NE500" message="Stop pump."></action>
         </protocol>
     </experiment>
 </monkeyml>
