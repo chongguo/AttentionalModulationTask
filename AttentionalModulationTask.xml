@@ -1,40 +1,400 @@
 <?xml version="1.0" standalone="no"?>
 <monkeyml version="1.0">
-    <io_devices tag="IO Devices">
-        <iodevice type="NE500" tag="NE500" alt="dummy" address="#serialBridgeAddress" port="100" priority="" id="">
-            <iochannel type="NE500" tag="pump1" variable="lick_output" capability="01" flow_rate="100" syringe_diameter="15.0"></iochannel>
+	<io_devices tag="IO Devices">
+		<iodevice type="NE500" tag="NE500" alt="dummy" address="#serialBridgeAddress" port="100" priority="" id="">
+			<iochannel type="NE500" tag="pump1" variable="lick_output" capability="01" flow_rate="100" syringe_diameter="15.0"></iochannel>
         </iodevice>
         <iodevice type="phidget" tag="phidget" alt="dummy">
-            <iochannel type="phidget" tag="head_sensor_channel" variable="head_input" index="4" capability="analog_input"></iochannel>
-            <iochannel type="phidget" tag="center_channel" variable="lick_input" index="6" capability="analog_input"></iochannel>
-        </iodevice>
-        <iodevice tag="dummy" priority="" type="dummy" id="" alt=""></iodevice>
-    </io_devices>
-    <variables tag="Variables">
-        <folder tag="IO Variables">
-                <variable tag="licksensor_max" default_value="1000" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="licksensor_min" default_value="10" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="headsensor_max" default_value="500" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="headsensor_min" default_value="0" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="lick_input" default_value="0" type="float" editable="ALWAYS" full_name="Lick Sensor 1 Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Variables"></variable>
-                <variable tag="head_input" default_value="1000" type="float" editable="ALWAYS" full_name="Head Movement Sensor Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Variables"></variable>
-                <variable tag="lick_output" default_value="0.02" type="float" editable="ALWAYS" full_name="Reward Output 1 Time" logging="WHEN_CHANGED" scope="GLOBAL" persistant="NO" groups="IO Variables"></variable>
-                <variable tag="reward_big" default_value="0.05" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="reward_norm" default_value="0.03" type="float" scope="global" logging="when_changed"  groups="IO Variables" persistant="1"></variable>
-                <variable tag="reward_rand" default_value="0.00" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="reward_rand_range" default_value="0.02" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
-                <variable tag="reward_A" default_value="0" type="float" scope="global" logging="when_changed" persistant="1" groups="IO Variables"></variable>
-                <variable tag="reward_B" default_value="0" type="float" scope="global" logging="when_changed" persistant="1" groups="IO Variables"></variable>
-                <variable tag="reward_decrement" default_value="0.005" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"></variable>
+        	<iochannel type="phidget" tag="head_sensor_channel" variable="head_input" index="4" capability="analog_input"></iochannel>
+        	<iochannel type="phidget" tag="center_channel" variable="lick_input" index="6" capability="analog_input"></iochannel>
+		</iodevice>
+		<iodevice tag="dummy" priority="" type="dummy" id="" alt=""></iodevice>
+	</io_devices>
+	<variables tag="Variables">
+		<folder tag="IO Variables">
+        	<variable tag="lick_input" default_value="0" type="float" editable="ALWAYS" full_name="Lick Sensor 1 Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" groups="IO Variables" persistant="NO"/>
+        	<variable tag="lick_output" default_value="0.02" type="float" editable="ALWAYS" full_name="Reward Output 1 Time" logging="WHEN_CHANGED" scope="GLOBAL" groups="IO Variables" persistant="NO"/>
+			<variable tag="licksensor_max" default_value="1000" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"/>
+			<variable tag="licksensor_min" default_value="10" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"/>
+            <variable tag="head_input" default_value="1000" type="float" editable="ALWAYS" full_name="Head Movement Sensor Analog Value" logging="WHEN_CHANGED" scope="GLOBAL" groups="IO Variables" persistant="NO"/>
+            <variable tag="headsensor_max" default_value="500" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"/>
+            <variable tag="headsensor_min" default_value="0" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"/>
+		</folder>
+		<folder tag="Phase Variables">
+			<variable tag="phase" default_value="1" type="integer" scope="global" editable="ALWAYS" logging="when_changed" persistant="1"/>
+			<variable tag="session_id" default_value="0" type="integer" scope="global" logging="when_changed" persistant="1"/>
+			<variable tag="trial_id" default_value="0" type="integer" scope="local" logging="when_changed" persistant="1"/>
+			<variable tag="trial_max" default_value="1000" type="integer" scope="local" logging="when_changed" persistant="1"/>
+		</folder>
+		<folder tag="Stimulus Properties">
+        	<variable tag="target_prob" default_value="0.5" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Stimulus Properties" persistant="1"/>
+        	<variable tag="target_A_prob" default_value="0.5" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Stimulus Properties" persistant="1"/>
+        	<variable tag="distractor_contrast" default_value="0" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Stimulus Properties" persistant="1"/>
+        	<variable tag="stim_rand_num" default_value="0" type="float" scope="global" logging="when_changed" groups="Stimulus Properties" persistant="1"/>
+        	<variable tag="target_rand_num" default_value="0" type="float" scope="global" logging="when_changed" groups="Stimulus Properties" persistant="1"/>
+        	</folder>
+		<folder tag="Reward Properties">
+        	<variable tag="reward_A" default_value="0" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"/>
+        	<variable tag="reward_B" default_value="0" type="float" scope="global" logging="when_changed" groups="IO Variables" persistant="1"/>
+        	<variable tag="reward_norm" default_value="0.05" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="IO Variables" persistant="1"/>
+        	<variable tag="reward_rand" default_value="0" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="IO Variables" persistant="1"/>
+        	<variable tag="reward_range" default_value="0" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="IO Variables" persistant="1"/>
+		</folder>
+        <folder tag="Timer Variable">
+        	<variable tag="headsense_time" default_value="6000" type="integer" scope="global" logging="when_changed" groups="Timer Variable" persistant="1"/>
+            <variable tag="target_time" default_value="1000" editable="always" type="integer" scope="global" logging="when_changed" groups="Timer Variable" persistant="1"/>
+            <variable tag="distractor_time" default_value="1000" editable="always" type="integer" scope="global" logging="when_changed" groups="Timer Variable" persistant="1"/>
+            <variable tag="reward_time" scope="global" logging="when_changed" default_value="5000" type="integer" groups="Reward, Timing Parameters" persistant="1"/>
+            <variable tag="ignorebreak_time" scope="global" logging="when_changed" default_value="1500" type="integer" groups="Reward, Timing Parameters" persistant="1"/>
+            <variable tag="punishflicker_time" scope="global" logging="when_changed" default_value="125" type="integer" groups="Timing Parameters, Punishment"/>
+        	<variable tag="punish_cycle_idx" scope="global" logging="when_changed" default_value="0" type="integer" groups="Timing Parameters, Punishment"/>
+        	<variable tag="punish_numcycles" scope="global" logging="when_changed" default_value="3" type="integer" groups="Timing Parameters, Punishment" persistant="1"/>
+        	<variable tag="timeout_time" scope="global" logging="when_changed" default_value="6000" type="integer" groups="Timing Parameters, Punishment" persistant="1"/>
         </folder>
-    </variables>
-    <experiment tag="New Experiment" full_name="" description="">
-    	<protocol tag="Target Training Protocol" nsamples="1" sampling_method="cycles" selection="sequential" interruptible="YES">
-            <action tag="Start Phidget" type="start_device_IO" device="phidget" message="Start head/lick sensors."></action>
-            <action tag="Start Pump" type="start_device_IO" device="NE500" message="Start pump."></action>
-            
-            <action tag="Stop Phidget" type="stop_device_IO" device="phidget" message="Stop head/lick sensors."></action>
-            <action tag="Stop Pump" type="stop_device_IO" device="NE500" message="Stop pump."></action>
+		<folder tag="Trial Outcome Variables">
+            <variable tag="idle_trial" scope="global" logging="when_changed" default_value="0" type="integer" groups="Trial Outcome Variables" persistant="1"/>
+            <variable tag="reward_trial" scope="global" logging="when_changed" default_value="0" type="integer" groups="Trial Outcome Variables" persistant="1"/>
+            <variable tag="good_ignore_trial" scope="global" logging="when_changed" default_value="0" type="integer" groups="Trial Outcome Variables" persistant="1"/>
+            <variable tag="bad_ignore_trial" scope="global" logging="when_changed" default_value="0" type="integer" groups="Trial Outcome Variables" persistant="1"/>
+            <variable tag="bad_lick_trial" scope="global" logging="when_changed" default_value="0" type="integer" groups="Trial Outcome Variables" persistant="1"/>
+		</folder>
+		<folder tag="Optimizer Variables">
+            <variable tag="trial_correct_1" default_value="0.6" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="trial_correct_2" default_value="0.6" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="trial_correct_3" default_value="0.6" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="trial_correct_4" default_value="0.6" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="target_prob_lower" default_value="0.2" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="target_prob_upper" default_value="0.5" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="target_prob_up_thresh" default_value="0.7" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="target_prob_down_thresh" default_value="0.5" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="target_prob_stepsize" default_value="-0.01" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="contrast_lower" default_value="0" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="contrast_upper" default_value="1" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="contrast_up_thresh" default_value="0.7" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="contrast_down_thresh" default_value="0.1" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="contrast_stepsize" default_value="0.1" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_norm_lower" default_value="0.03" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_norm_upper" default_value="0.05" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_norm_up_thresh" default_value="0.7" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_norm_down_thresh" default_value="0.5" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_norm_stepsize" default_value="-0.001" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_range_lower" default_value="0" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_range_upper" default_value="0.2" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_range_up_thresh" default_value="0.7" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_range_down_thresh" default_value="0.5" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+            <variable tag="reward_range_stepsize" default_value="-0.001" type="float" scope="global" editable="ALWAYS" logging="when_changed" groups="Optimizer Variables" persistant="1"/>
+		</folder>
+	</variables>
+
+	<optimizers tag="Optimizers">
+    	<staircase type="simple" tag="target_prob optimizer" watch="trial_correct_1" output="target_prob" lower_limit="target_prob_lower" upper_limit="target_prob_upper" up_criterion="target_prob_up_thresh" down_criterion="target_prob_down_thresh" step_size="target_prob_stepsize" grace_period="1" history="20"/>
+        <staircase type="simple" tag="contrast optimizer" watch="trial_correct_2" output="distractor_contrast" lower_limit="contrast_lower" upper_limit="contrast_upper" up_criterion="contrast_up_thresh" down_criterion="contrast_down_thresh" step_size="contrast_stepsize" grace_period="1" history="20"/>
+        <staircase type="simple" tag="reward_norm optimizer" watch="trial_correct_3" output="reward_norm" lower_limit="reward_norm_lower" upper_limit="reward_norm_upper" up_criterion="reward_norm_up_thresh" down_criterion="reward_norm_down_thresh" step_size="reward_norm_stepsize" grace_period="1" history="20"/>
+        <staircase type="simple" tag="reward_range optimizer" watch="trial_correct_4" output="reward_range" lower_limit="reward_range_lower" upper_limit="reward_range_upper" up_criterion="reward_range_up_thresh" down_criterion="reward_range_down_thresh" step_size="reward_range_stepsize" grace_period="1" history="20"/>
+	</optimizers>
+	<stimuli tag="Stimuli">
+		<stimulus tag="BlankScreenDark" type="blank_screen" color="0, 0, 0" deferred="YES"/>
+        <stimulus tag="BlankScreenGray" type="blank_screen" color="0.5, 0.5, 0.5" deferred="YES"/>
+        <stimulus tag="BlueSquare" type="rectangle" color="0,0,1" x_size="20" y_size="20" x_position="0" y_position="0"/>
+        <stimulus tag="GreenSquare" type="rectangle" color="0,1,0" x_size="20" y_size="20" x_position="0" y_position="0"/>
+        <stimulus tag="RedSquare" type="rectangle" color="1,0,0" x_size="20" y_size="20" x_position="0" y_position="0"  alpha_multiplier="distractor_contrast"/>
+    	</stimuli>
+    	<sounds tag="Sounds">
+        	<sound tag="RewardSound" type="wav_file" path="stimuli/sounds/NRsuccess.wav"/>
+        	<sound tag="LoopPunishSound" type="wav_file" path="stimuli/sounds/failure_DZ.wav"/>
+    	</sounds>
+    <experiment tag="Experiment">
+    	<protocol tag="Attentional Modulation Task" nsamples="1" sampling_method="cycles" selection="sequential" interruptible="YES">
+            <action tag="Start Phidget" type="start_device_IO" device="phidget"/>
+            <action tag="Start Pump" type="start_device_IO" device="NE500"/>
+            <action type="assignment" tag="Generate Random Reward Asymmetry" variable="reward_rand" value="rand(-reward_range,reward_range)"/>
+            <action type="assignment" tag="Track Session ID" variable="session_id" value="session_id+1"/>
+            <action type="report" tag="Report Session ID" message="Current session is $session_id"/>
+            <action type="report" tag="reward_rand selected" message="reward_rand = $reward_rand"/>
+            <block tag="New Block" nsamples="1" sampling_method="cycles" selection="sequential" interruptible="YES">
+			<range_replicator from="0" step="1" tag="New Replicator" to="trial_max" variable="trial_id">
+                <trial interruptible="YES" nsamples="1" sampling_method="cycles" selection="sequential_ascending" tag="trial">
+                	<task_system full_name="TS" interruptible="YES" tag="Task System">
+						<task_system_state tag="Initialize" interruptible="YES">
+                	    	<action_marker _unmoveable="1" tag="Actions"/>
+                        	<action type="report" tag="Current State is Initialize" message="Initialize"/>
+                            <action tag="Queue Background Screen" type="queue_stimulus" stimulus="BlankScreenGray"></action>
+							<action tag="Update Stimulus Display" type="update_stimulus_display"/>
+					
+							<action type="if" tag="Phase 1 to 2 Transition" condition="phase==1 #AND target_prob==target_prob_lower">
+                	        	<action type="report" tag="Phase 2 Intiated" message="Initiating Phase 2"/>
+								<action type="assignment" tag="Phase Transition 1 to 2" variable="phase" value="2"/>
+								<action type="assignment" tag="trial_correct_1 disable" variable="trial_correct_1" value="0.6"/>
+							</action>
+							<action type="if" tag="Phase 2 to 3 Transition" condition="phase==2 #AND distractor_contrast==contrast_upper">
+                	        	<action type="report" tag="Phase 3 Intiated" message="Initiating Phase 3"/>
+								<action type="assignment" tag="Phase Transition 2 to 3" variable="phase" value="3"/>
+								<action type="assignment" tag="trial_correct_1 disable" variable="trial_correct_1" value="0.6"/>
+								<action type="assignment" tag="trial_correct_2 disable" variable="trial_correct_2" value="0.6"/>
+							</action>
+							<action type="if" tag="Phase 3 to 4 Transition" condition="phase==3 #AND reward_norm==reward_norm_lower">
+		                	    <action type="report" tag="Phase 4 Intiated" message="Initiating Phase 4"/>
+								<action type="assignment" tag="Phase Transition 3 to 4" variable="phase" value="4"/>
+								<action type="assignment" tag="trial_correct_1 disable" variable="trial_correct_1" value="0.6"/>
+								<action type="assignment" tag="trial_correct_2 disable" variable="trial_correct_2" value="0.6"/>
+								<action type="assignment" tag="trial_correct_3 disable" variable="trial_correct_3" value="0.6"/>
+							</action>
+
+	                        <transition_marker _unmoveable="1" tag="Transitions"/>
+        	                <transition type="direct" tag="Initialization over, go to Sense Head." target="Sense Head"/>
+							</task_system_state>
+	
+	                        <task_system_state tag="Sense Head" interruptible="YES" >
+        	                	<action_marker _unmoveable="1" tag="Actions"/>
+                	        	<action type="report" tag="Current State is Sense Head" message="Sense Head"/>
+                        		<action_marker _unmoveable="1" tag="Actions"/>
+                        		<action type="start_timer" tag="Start Head Sense Timer" timer="HeadSense_timer" timebase="" duration="headsense_time" duration_units="ms"/>
+                    	    	<transition_marker _unmoveable="1" tag="Transitions"/>
+                        		<transition type="conditional" tag="If head is sensed, Goto Pick Stimulus" condition="head_input #LT headsensor_max #AND head_input #GE headsensor_min" target="Pick Stimulus"/>
+                       		 	<transition type="timer_expired" tag="If Head Sense Timer Expired, Goto Idle..." target="Idle" timer="HeadSense_timer"/>
+							</task_system_state>
+
+	                        <task_system_state tag="Pick Stimulus" interruptible="YES">
+        	                	<action_marker _unmoveable="1" tag="Actions"/>
+                	        	<action type="report" tag="Current State is Pick Stimulus" message="Pick Stimulus"/>
+                                <action type="assignment" tag="Generate Random Prob for target versus distractor" variable="stim_rand_num" value="rand(0,1)"/>
+
+								<transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="conditional" tag="If Target chosen, Goto Set Target Trial Variables" condition="stim_rand_num #LE target_prob" target="Pick Target"/>
+								<transition type="direct" tag="Otherwise, Goto Set Distractor Trial Variables" target="Show Distractor"/>
+								</task_system_state>
+	
+							<task_system_state tag="Show Distractor" interruptible="YES">
+								<action_marker _unmoveable="1" tag="Actions"/>
+			                	<action type="report" tag="Current State is Show Distractor" message="Show Distractor"/>
+			                    <action tag="Live Queue Stimulus" type="live_queue_stimulus" stimulus="RedSquare"/>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"></action>
+			                    <action type="start_timer" tag="Start Distractor Timer" timer="Distractor_timer" timebase="" duration="distractor_time" duration_units="ms"/>
+								<transition_marker _unmoveable="1" tag="Transitions"/>
+			                    <transition type="conditional" tag="If Licking, Goto Bad Lick" condition="lick_input #LE licksensor_max #AND lick_input #GE licksensor_min" target="Bad Lick"/>
+								<transition type="timer_expired" tag="Go to Good Ignore" target="Good Ignore" timer="Distractor_timer"/>
+							</task_system_state>
+
+	                        <task_system_state tag="Pick Target" interruptible="YES">
+        	                	<action_marker _unmoveable="1" tag="Actions"/>
+                	        	<action type="report" tag="Current State is Pick Target" message="Pick Target"/>
+                                <action type="assignment" tag="Generate Random Prob for target A versus B" variable="target_rand_num" value="rand(0,1)"/>
+								<transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="conditional" tag="If Target A chosen, Goto Show Target A" condition="target_rand_num #LE target_A_prob" target="Show Target A"/>
+								<transition type="direct" tag="Otherwise show Target B" target="Show Target B"/>
+							</task_system_state>
+
+	                        <task_system_state tag="Show Target A" interruptible="YES">
+								<action_marker _unmoveable="1" tag="Actions"/>
+                	        	<action type="report" tag="Current State is Show Target A" message="Show Target A"/>
+                                <action tag="Live Queue Stimulus" type="live_queue_stimulus" stimulus="BlueSquare"/>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"></action>
+                        		<action type="start_timer" tag="Start Target Timer" timer="Target_timer" timebase="" duration="target_time" duration_units="ms"/>
+								<transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="conditional" tag="If Licking, Goto Reward A" condition="lick_input #LE licksensor_max #AND lick_input #GE licksensor_min" target="Reward A"/>
+								<transition type="timer_expired" tag="Go to Bad Ignore" target="Bad Ignore" timer="Target_timer"/>
+							</task_system_state>
+
+	                        <task_system_state tag="Show Target B" interruptible="YES">
+								<action_marker _unmoveable="1" tag="Actions"/>
+                	        	<action type="report" tag="Current State is Show Target B" message="Show Target B"/>
+                                <action tag="Live Queue Stimulus" type="live_queue_stimulus" stimulus="GreenSquare"/>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"></action>
+                        		<action type="start_timer" tag="Start Target Timer" timer="Target_timer" timebase="" duration="target_time" duration_units="ms"/>
+								<transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="conditional" tag="If Licking, Goto Reward B" condition="lick_input #LE licksensor_max #AND lick_input #GE licksensor_min" target="Reward B"/>
+								<transition type="timer_expired" tag="Go to Bad Ignore" target="Bad Ignore" timer="Target_timer"/>
+							</task_system_state>
+
+							<task_system_state tag="Reward A" interruptible="NO">
+                            	<action_marker _unmoveable="1" tag="Actions"/>
+                                <action type="report" tag="Report" message="Rewarding A…"/>
+                                <action type="assignment" tag="Calculate reward amount for A" variable="reward_A" value="reward_norm+reward_rand"/>
+                                <action full_name="fullname_17" tag="Give Reward" type="assignment" value="reward_A" variable="lick_output"/>
+                                <action type="start_timer" tag="Start Reward Timer" timer="Reward_timer" timebase="" duration="reward_time" duration_units="ms"/>
+                                <transition_marker _unmoveable="1" tag="Transitions"></transition_marker>
+                                <transition type="timer_expired" tag="If Target Timer had time left and is now expired, Goto Reward Break" target="Reward Break" timer="Target_timer"/>
+                            </task_system_state>
+
+							<task_system_state tag="Reward B" interruptible="NO">
+                                <action_marker _unmoveable="1" tag="Actions"/>
+                                <action type="report" tag="Report" message="Rewarding B…"/>
+                                <action type="assignment" tag="Calculate reward amount for A" variable="reward_B" value="reward_norm-reward_rand"/>
+                                <action full_name="fullname_17" tag="Give Reward" type="assignment" value="reward_B" variable="lick_output"/>
+                                <action type="start_timer" tag="Start Reward Timer" timer="Reward_timer" timebase="" duration="reward_time" duration_units="ms"/>
+                                <transition_marker _unmoveable="1" tag="Transitions"></transition_marker>
+                                <transition type="timer_expired" tag="If Target Timer had time left and is now expired, Goto Reward Break" target="Reward Break" timer="Target_timer"/>
+                            </task_system_state>
+
+							<task_system_state tag="Reward Break" interruptible="NO">
+                            	<action_marker _unmoveable="1" tag="Actions"/>
+
+								<action type="if" tag="Trial Correct Flag 1" condition="phase==1">
+									<action type="assignment" tag="trial_correct_1 evaluate" variable="trial_correct_1" value="1"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 2" condition="phase==2">
+									<action type="assignment" tag="trial_correct_2 evaluate" variable="trial_correct_2" value="1"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 3" condition="phase==3">
+									<action type="assignment" tag="trial_correct_3 evaluate" variable="trial_correct_3" value="1"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 4" condition="phase==4">
+									<action type="assignment" tag="trial_correct_4 evaluate" variable="trial_correct_4" value="1"/>
+								</action>
+
+                                <action tag="Dequeue Target A" type="dequeue_stimulus" stimulus="BlueSquare"/>
+                                <action tag="Dequeue Target B" type="dequeue_stimulus" stimulus="GreenSquare"/>
+                                <action tag="Queue Background Screen" type="queue_stimulus" stimulus="BlankScreenGray"></action>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"/>
+                        		<action type="assignment" tag="Set reward_trial" variable="reward_trial" value="reward_trial + 1"/>
+                                <action type="report" tag="Report" message="Reward Break"/>
+                                <transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="timer_expired" tag="If Reward_timer is expired, goto finish" target="Finish" timer="Reward_timer"/>
+                            </task_system_state>
+
+							<task_system_state tag="Bad Ignore" interruptible="NO">
+                	        	<action_marker _unmoveable="1" tag="Actions"/>
+
+								<action type="if" tag="Trial Correct Flag 1" condition="phase==1">
+									<action type="assignment" tag="trial_correct_1 evaluate" variable="trial_correct_1" value="0"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 2" condition="phase==2">
+									<action type="assignment" tag="trial_correct_2 evaluate" variable="trial_correct_2" value="0"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 3" condition="phase==3">
+									<action type="assignment" tag="trial_correct_3 evaluate" variable="trial_correct_3" value="0"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 4" condition="phase==4">
+									<action type="assignment" tag="trial_correct_4 evaluate" variable="trial_correct_4" value="0"/>
+								</action>
+
+                        		<action type="report" tag="Bad Ignore" message="Bad Ignore"/>
+                        		<action type="assignment" tag="Set bad_ignore_trial" variable="bad_ignore_trial" value="bad_ignore_trial + 1"/>
+                                <action tag="Dequeue Target A" type="dequeue_stimulus" stimulus="BlueSquare"/>
+                                <action tag="Dequeue Target B" type="dequeue_stimulus" stimulus="GreenSquare"/>
+                                <action tag="Queue Background Screen" type="queue_stimulus" stimulus="BlankScreenGray"></action>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"/>
+               		         	<transition_marker _unmoveable="1" tag="Transitions"/>
+                        		<transition type="direct" tag="Go to Ignore Break" target="Ignore Break"/>
+                        	</task_system_state>
+
+							<task_system_state tag="Good Ignore" interruptible="NO">
+                	        	<action_marker _unmoveable="1" tag="Actions"/>
+
+								<action type="if" tag="Trial Correct Flag 1" condition="phase==1">
+									<action type="assignment" tag="trial_correct_1 evaluate" variable="trial_correct_1" value="1"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 2" condition="phase==2">
+									<action type="assignment" tag="trial_correct_2 evaluate" variable="trial_correct_2" value="1"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 3" condition="phase==3">
+									<action type="assignment" tag="trial_correct_3 evaluate" variable="trial_correct_3" value="1"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 4" condition="phase==4">
+									<action type="assignment" tag="trial_correct_4 evaluate" variable="trial_correct_4" value="1"/>
+								</action>
+
+                        		<action type="report" tag="Good Ignore" message="Good Ignore"/>
+                        		<action type="assignment" tag="Set good_ignore_trial" variable="good_ignore_trial" value="good_ignore_trial + 1"/>
+                                <action tag="Dequeue Distractor" type="dequeue_stimulus" stimulus="RedSquare"/>
+                                <action tag="Queue Background Screen" type="queue_stimulus" stimulus="BlankScreenGray"></action>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"/>
+               		         	<transition_marker _unmoveable="1" tag="Transitions"/>
+                        		<transition type="direct" tag="Go to Ignore Break" target="Ignore Break"/>
+                        	</task_system_state>
+
+							<task_system_state tag="Bad Lick" interruptible="NO">
+                	        	<action_marker _unmoveable="1" tag="Actions"/>
+
+								<action type="if" tag="Trial Correct Flag 1" condition="phase==1">
+									<action type="assignment" tag="trial_correct_1 evaluate" variable="trial_correct_1" value="0"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 2" condition="phase==2">
+									<action type="assignment" tag="trial_correct_2 evaluate" variable="trial_correct_2" value="0"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 3" condition="phase==3">
+									<action type="assignment" tag="trial_correct_3 evaluate" variable="trial_correct_3" value="0"/>
+								</action>
+								<action type="if" tag="Trial Correct Flag 4" condition="phase==4">
+									<action type="assignment" tag="trial_correct_4 evaluate" variable="trial_correct_4" value="0"/>
+								</action>
+
+                        		<action type="report" tag="Bad Lick" message="Bad Lick"/>
+                        		<action type="assignment" tag="Set bad_lick_trial" variable="bad_lick_trial" value="bad_lick_trial + 1"/>
+                                <action tag="Dequeue Distractor" type="dequeue_stimulus" stimulus="RedSquare"/>
+                                <action tag="Queue Background Screen" type="queue_stimulus" stimulus="BlankScreenGray"></action>
+								<action tag="Update Stimulus Display" type="update_stimulus_display"></action>
+               		         	<transition_marker _unmoveable="1" tag="Transitions"/>
+                        		<transition type="direct" tag="Go to Punish." target="Punish"/>
+                        	</task_system_state>
+
+							<task_system_state tag="Punish" interruptible="NO">
+								<action_marker _unmoveable="1" tag="Actions"/>
+                                <action tag="Initialize punishment cycle index" full_name="fullname_19" type="assignment" variable="punish_cycle_idx" value="0"/>
+                                <transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="direct" tag="Goto Punish Loop" target="Punish Loop Black"/>
+							</task_system_state>
+                                
+							<task_system_state tag="Punish Loop Black" interruptible="YES">
+                                <action_marker _unmoveable="1" tag="Actions"/>
+                                <action full_name="fullname_31" sound="LoopPunishSound" tag="Play LoopPunish Sound" type="play_sound"/>
+                                <action tag="Queue Black Background" type="queue_stimulus" stimulus="BlankScreenDark"/>
+                                <action tag="Update Display" type="update_stimulus_display"/>
+                                <action type="start_timer" tag="Start Punish Flicker Timer" timer="PunishFlicker_timer" timebase="" duration="punishflicker_time" duration_units="ms"/>
+                                <transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="timer_expired" tag="If Black Flicker Timer Expired, Goto Punish Loop Gray" target="Punish Loop Gray" timer="PunishFlicker_timer"/>
+                            </task_system_state>
+                                
+							<task_system_state tag="Punish Loop Gray" interruptible="YES">
+                                <action_marker _unmoveable="1" tag="Actions"/>
+                                <action type="assignment" tag="Update Punish Cycle Index" variable="punish_cycle_idx" value="punish_cycle_idx + 1"/>
+                                <action full_name="fullname_31" sound="LoopPunishSound" tag="Play LoopPunish Sound" type="play_sound"/>
+                                <action tag="Dequeue Black Background" type="dequeue_stimulus" stimulus="BlankScreenDark"/>
+                                <action tag="Update Display" type="update_stimulus_display"/>
+                                <action type="start_timer" tag="Start Punish Flicker Timer again" timer="PunishFlicker_timer" timebase="" duration="punishflicker_time" duration_units="ms"/>
+                                <transition_marker _unmoveable="1" tag="Transitions"/>
+                                <transition type="conditional" tag="If Punish Cycle done, Goto Time Out" condition="punish_cycle_idx #GT punish_numcycles" target="Punish Time Out"/>
+                                <transition type="timer_expired" tag="If Gray Flicker Timer Expired, Goto Punish Loop Black" target="Punish Loop Black" timer="PunishFlicker_timer"/>
+                            </task_system_state>
+
+                            <task_system_state tag="Punish Time Out" interruptible="YES">
+                            	<action_marker _unmoveable="1" tag="Actions"/>
+                            	<action type="start_timer" tag="Start Timeout Timer" timer="Timeout_timer" timebase="" duration="timeout_time" duration_units="ms"/>
+                        		<transition_marker _unmoveable="1" tag="Transitions"/>
+                            	<transition type="conditional" tag="If still licking, Goto Punish" condition="lick_input #LT licksensor_max #AND lick_input #GT licksensor_min" target="Punish"/>
+                            	<transition type="timer_expired" tag="If Timeout Timer Expired, Goto Finish" target="Finish" timer="Timeout_timer"/>
+                            </task_system_state>
+  
+							<task_system_state tag="Idle" interruptible="NO">
+                	        	<action_marker _unmoveable="1" tag="Actions"/>
+                        		<action type="report" tag="Idle" message="Idle"/>
+                        		<action type="assignment" tag="Set idle_trial" variable="idle_trial" value="idle_trial + 1"/>
+               		         	<transition_marker _unmoveable="1" tag="Transitions"/>
+                        		<transition type="direct" tag="Idle loop over, go to finish." target="Finish"/>
+                        	</task_system_state>
+				
+							<task_system_state tag="Ignore Break" interruptible="NO">
+                	        	<action_marker _unmoveable="1" tag="Actions"/>
+                        		<action type="report" tag="Ignore Break" message="Ignore Break"/>
+                               	<action type="start_timer" tag="Start Ignore Break Timer" timer="IgnoreBreak_timer" timebase="" duration="ignorebreak_time" duration_units="ms"/>
+               		         	<transition_marker _unmoveable="1" tag="Transitions"/>
+							<transition type="conditional" tag="Punish if lick during ignore break" condition="lick_input #LT licksensor_max #AND lick_input #GT licksensor_min" target="Punish"/>
+							<transition type="timer_expired" tag="Otherwise go to finish" target="Finish" timer="IgnoreBreak_timer"/>
+	                        	</task_system_state>
+
+							<task_system_state tag="Finish" interruptible="NO">
+                	        	<action_marker _unmoveable="1" tag="Actions"/>
+                        		<action type="report" tag="Finish" message="Finish"/>
+                        		<transition_marker _unmoveable="1" tag="Transitions"/>
+                        		<transition type="yield" tag="Return to parent task system"/>
+                       	 	</task_system_state>
+
+ 	                   </task_system>
+        	        </trial>
+				</range_replicator>
+            </block>
+            <action tag="Stop Phidget" type="stop_device_IO" device="phidget"/>
+            <action tag="Stop Pump" type="stop_device_IO" device="NE500"/>
         </protocol>
     </experiment>
 </monkeyml>
