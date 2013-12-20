@@ -19,4 +19,9 @@ Sequence of events expressed during a single trial: head poke/no poke —> displ
 
 **Phase IV:**  Targets and distractors are shown in full contrast with different probabilities (0.3 versus 0.7). On any given session, a fixed, asymmetrical amount of reward is delivered for A/B when animal licks. Licking on O still triggers the punishment loop. Reward amount is decided at the start of each session, a random number *reward_rand* between -0.02 and +0.02 is drawn. We then set *reward_A* = 0.03 + *reward_rand* and *reward_B* = 0.03 - *reward_rand*. The magnitude of *reward_rand* can be regarded as a proxy for how much the animal should pay attention to the dimension along which A and B varies.
 
+**STATE DIAGRAM**
+
+
+![LINK](http://i.imgur.com/Ch5Zqwz.png?raw=true)
+
 
